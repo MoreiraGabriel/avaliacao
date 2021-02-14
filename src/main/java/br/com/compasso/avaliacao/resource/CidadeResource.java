@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.compasso.avaliacao.model.dto.CidadeDto;
 import br.com.compasso.avaliacao.model.dto.request.CidadeRequest;
+import br.com.compasso.avaliacao.model.dto.request.NomeRequest;
 import br.com.compasso.avaliacao.service.CidadeService;
 import io.swagger.annotations.Api;
 
@@ -41,15 +42,15 @@ public class CidadeResource {
 	}
 	
 	@GetMapping("listar-por-nome")
-	public ResponseEntity<CidadeDto> listarPorNome(@RequestBody String nome) {
+	public ResponseEntity<CidadeDto> listarPorNome(@RequestBody NomeRequest request) {
 		
-		return  ResponseEntity.ok(service.listarPorNome(nome));
+		return  ResponseEntity.ok(service.listarPorNome(request));
 	}
 	
 	@GetMapping("listar-por-estado")
-	public ResponseEntity<List<CidadeDto>> listarPorEstado(@RequestBody String estado) {
+	public ResponseEntity<List<CidadeDto>> listarPorEstado(@RequestBody NomeRequest request) {
 		
-		return  ResponseEntity.ok(service.listarPorEstado(estado));
+		return  ResponseEntity.ok(service.listarPorEstado(request));
 	}
 	
 	@PostMapping("cadastrar")

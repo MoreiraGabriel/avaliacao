@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.compasso.avaliacao.model.Cidade;
 import br.com.compasso.avaliacao.model.dto.CidadeDto;
 import br.com.compasso.avaliacao.model.dto.request.CidadeRequest;
+import br.com.compasso.avaliacao.model.dto.request.NomeRequest;
 import br.com.compasso.avaliacao.repository.CidadeRepository;
 
 @Service
@@ -28,8 +29,8 @@ public class CidadeService {
 		return CidadeDto.converterDto(repository.findAll());
 	}
 	
-	public CidadeDto listarPorNome(String nome){
-		return new CidadeDto(repository.findByNome(nome));
+	public CidadeDto listarPorNome(NomeRequest request){
+		return new CidadeDto(repository.findByNome(request.getNome()));
 	}
 	
 	public CidadeDto cadastrar(CidadeRequest request) {
@@ -63,8 +64,8 @@ public class CidadeService {
 		return res;
 	}
 
-	public List<CidadeDto> listarPorEstado(String estado) {
-		return CidadeDto.converterDto(repository.findByEstado(estado));
+	public List<CidadeDto> listarPorEstado(NomeRequest request) {
+		return CidadeDto.converterDto(repository.findByEstado(request.getNome()));
 	}
 	
 }
