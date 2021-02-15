@@ -30,7 +30,8 @@ public class CidadeService {
 	}
 	
 	public CidadeDto listarPorNome(NomeRequest request){
-		return new CidadeDto(repository.findByNome(request.getNome()));
+		Optional<Cidade> cidade = repository.findByNome(request.getNome());
+		return cidade.isPresent() ? new CidadeDto(cidade.get()) : null;
 	}
 	
 	public CidadeDto cadastrar(CidadeRequest request) {

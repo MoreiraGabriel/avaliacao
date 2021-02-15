@@ -1,6 +1,7 @@
 package br.com.compasso.avaliacao.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -14,7 +15,7 @@ import br.com.compasso.avaliacao.model.Cidade;
 @Transactional
 public interface CidadeRepository extends JpaRepository<Cidade, Long> {
 
-	Cidade findByNome(String nome);
+	Optional<Cidade> findByNome(String nome);
 	
 	List<Cidade> findByEstado(String estado);
 	
