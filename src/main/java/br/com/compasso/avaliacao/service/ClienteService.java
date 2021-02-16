@@ -58,7 +58,7 @@ public class ClienteService {
 	@Transactional
 	public ClienteDto cadastrar(ClienteRequest request) {
 		
-		Optional<Cidade> cidade = cidadeRepository.findByNome(request.getCidade());
+		Optional<Cidade> cidade = cidadeRepository.findCidade(request.getCidade());
 		
 		if(cidade.isPresent()) {
 			Cliente cliente = new Cliente();

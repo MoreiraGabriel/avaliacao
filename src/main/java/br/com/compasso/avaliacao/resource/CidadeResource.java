@@ -42,7 +42,7 @@ public class CidadeResource {
 	}
 	
 	@GetMapping("listar-por-nome")
-	public ResponseEntity<CidadeDto> listarPorNome(@RequestBody NomeRequest request) {
+	public ResponseEntity<List<CidadeDto>> listarPorNome(@RequestBody NomeRequest request) {
 		
 		return  ResponseEntity.ok(service.listarPorNome(request));
 	}

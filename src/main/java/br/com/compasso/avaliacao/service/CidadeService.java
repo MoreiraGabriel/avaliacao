@@ -29,9 +29,9 @@ public class CidadeService {
 		return CidadeDto.converterDto(repository.findAll());
 	}
 	
-	public CidadeDto listarPorNome(NomeRequest request){
-		Optional<Cidade> cidade = repository.findByNome(request.getNome());
-		return cidade.isPresent() ? new CidadeDto(cidade.get()) : null;
+	public List<CidadeDto>listarPorNome(NomeRequest request){
+		Optional<List<Cidade>> cidades = repository.findByNome(request.getNome());
+		return cidades.isPresent() ? CidadeDto.converterDto((cidades.get())) : null;
 	}
 	
 	public CidadeDto cadastrar(CidadeRequest request) {

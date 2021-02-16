@@ -14,6 +14,4 @@ import br.com.compasso.avaliacao.model.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	
 	List<Cliente> findByNome(String nome);
-	
-
 }

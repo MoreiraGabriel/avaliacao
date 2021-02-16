@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.compasso.avaliacao.model.dto.ClienteDto;
 import br.com.compasso.avaliacao.model.dto.request.ClienteRequest;
@@ -43,8 +44,11 @@ public class ClienteResource {
 	}
 	
 	@PostMapping("cadastrar")
-	public ResponseEntity<ClienteDto> cadastrar(@RequestBody ClienteRequest request){
-		return ResponseEntity.ok(service.cadastrar(request));
+	public ResponseEntity<ClienteDto> cadastrar(@RequestBody ClienteRequest request, UriComponentsBuilder builder){
+		ClienteDto dto = service.cadastrar(request);
+		
+		return dto != null ? ResponseEntity.status(201).body(dto)
+				: ResponseEntity.unprocessableEntity().build();
 	}
 	
 	@PutMapping("atualizar-nome/{id}")

@@ -25,7 +25,7 @@ public class ClienteDto {
 		this.sexo = cliente.getSexo();
 		this.dataNascimento = cliente.getDataNascimento();
 		this.idade = cliente.getIdade();
-		this.cidade = cliente.getCidade().getNome() + cliente.getCidade().getEstado();
+		this.cidade = cliente.getCidade().getNome() +"/"+ cliente.getCidade().getEstado();
 	}
 	
 	public static List<ClienteDto> converter(List<Cliente> clientes){
