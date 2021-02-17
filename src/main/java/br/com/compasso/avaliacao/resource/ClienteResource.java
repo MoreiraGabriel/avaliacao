@@ -62,9 +62,9 @@ public class ClienteResource {
 	
 	@DeleteMapping("deletar/{id}")
 	public ResponseEntity<Boolean> deletar(@PathVariable Long id){
-		Boolean res = service.deletar(id);
+		boolean res = service.deletar(id);
 		
-		return res == true ? ResponseEntity.ok(res) : ResponseEntity.notFound().build();
+		return res ? ResponseEntity.ok(res) : ResponseEntity.notFound().build();
 	}
 
 }
