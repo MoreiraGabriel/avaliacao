@@ -68,7 +68,8 @@ public class CidadeResource {
 	
 	@DeleteMapping("deletar/{id}")
 	public ResponseEntity<Boolean> deletar(@PathVariable Long id){
-		return ResponseEntity.ok(service.deletar(id));
+		boolean res = service.deletar(id);
+		return res ? ResponseEntity.ok(res) : ResponseEntity.notFound().build();
 	}
 
 }
