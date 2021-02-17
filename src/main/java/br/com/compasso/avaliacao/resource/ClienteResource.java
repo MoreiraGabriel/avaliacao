@@ -44,7 +44,8 @@ public class ClienteResource {
 	}
 	
 	@PostMapping("cadastrar")
-	public ResponseEntity<ClienteDto> cadastrar(@RequestBody ClienteRequest request, UriComponentsBuilder builder){
+	public ResponseEntity<ClienteDto> cadastrar(@RequestBody ClienteRequest request, 
+			UriComponentsBuilder builder){
 		ClienteDto dto = service.cadastrar(request);
 		
 		return dto != null ? ResponseEntity.status(201).body(dto)
@@ -54,12 +55,16 @@ public class ClienteResource {
 	@PutMapping("atualizar-nome/{id}")
 	public ResponseEntity<ClienteDto> atualizarNome(@PathVariable Long id, 
 			@RequestBody NomeRequest request){
-		return ResponseEntity.ok(service.atualizaNome(id, request));
+		ClienteDto dto = service.atualizaNome(id, request);
+		
+		return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("deletar/{id}")
 	public ResponseEntity<Boolean> deletar(@PathVariable Long id){
-		return ResponseEntity.ok(service.deletar(id));
+		Boolean res = service.deletar(id);
+		
+		return res == true ? ResponseEntity.ok(res) : ResponseEntity.notFound().build();
 	}
 
 }
