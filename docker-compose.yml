@@ -15,3 +15,16 @@ services:
       - 5432:5432
     volumes:
       - ./postgresql/data:/data
+
+##  MongoDB
+    mongodb:
+      image: mongo:4.4.4
+      container_name: mongodb
+      restart: always
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: root
+      ports:
+        - 27017:27017
+      volumes:
+        - ./mongodb:/data/db
