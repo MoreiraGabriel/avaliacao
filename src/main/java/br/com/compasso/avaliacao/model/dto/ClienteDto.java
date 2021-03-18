@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClienteDto {
 	
-	private Long id;
+	private String id;
 	private String nome;
 	private String sexo;
 	private LocalDateTime dataNascimento;

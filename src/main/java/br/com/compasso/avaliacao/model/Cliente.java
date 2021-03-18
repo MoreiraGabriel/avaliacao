@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import br.com.compasso.avaliacao.model.dto.request.ClienteRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class Cliente {
 	
 	@Id 
-	private Long id;
+	private String id;
 	private String nome;
 	private String sexo;
 	private LocalDateTime dataNascimento;
@@ -29,6 +30,14 @@ public class Cliente {
 		this.dataNascimento = dataNascimento;
 		this.idade = idade;
 		this.cidade = cidade;
+	}
+	
+	public Cliente(ClienteRequest request) {
+		this.nome = request.getNome();
+		this.sexo = request.getSexo();
+		this.dataNascimento = request.getDataNascimento();
+		this.idade = request.getIdade();
+		this.cidade = null;
 	}	
 	
 }

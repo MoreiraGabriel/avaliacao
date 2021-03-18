@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,9 @@ import br.com.compasso.avaliacao.model.dto.CidadeDto;
 import br.com.compasso.avaliacao.model.dto.request.CidadeRequest;
 import br.com.compasso.avaliacao.service.CidadeService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("cidade")
@@ -27,6 +31,12 @@ public class CidadeResource {
 	@Autowired
 	private CidadeService service;
 	
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Sucesso",  response = CidadeDto.class ),
+			@ApiResponse(code = 404, message = "Não encontrado", response = NotFoundException.class),
+			@ApiResponse(code = 500, message = "Erro interno do servidor", response = Exception.class),
+	})
+	@ApiOperation(value = "Buscar cidade por id")
 	@GetMapping("{id}")
 	public ResponseEntity<CidadeDto> obterPorId(@PathVariable String id) {
 		Optional<CidadeDto> dto = service.obterPorId(id);
@@ -34,29 +44,62 @@ public class CidadeResource {
 		return  ResponseEntity.of(dto);
 	}
 	
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Sucesso",  response = List.class ),
+			@ApiResponse(code = 404, message = "Não encontrado", response = NotFoundException.class),		
+			@ApiResponse(code = 500, message = "Erro interno do servidor", response = Exception.class),
+	})
+	@ApiOperation(value = "Listar todas as cidades")
 	@GetMapping
 	public ResponseEntity<List<CidadeDto>> obterTodas() {
 		
 		return  ResponseEntity.ok(service.obterTodas());
 	}
 	
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Sucesso",  response = List.class ),
+			@ApiResponse(code = 404, message = "Não encontrado", response = NotFoundException.class),		
+			@ApiResponse(code = 500, message = "Erro interno do servidor", response = Exception.class),
+	})
+	@ApiOperation(value = "Obter cidade por nome")
 	@GetMapping("listar-por-nome/{cidade}")
 	public ResponseEntity<List<CidadeDto>> listarPorNome(@PathVariable String cidade) {
 		
 		return  ResponseEntity.ok(service.listarPorNome(cidade));
 	}
-	
+
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Sucesso",  response = List.class ),
+			@ApiResponse(code = 404, message = "Não encontrado", response = NotFoundException.class),		
+			@ApiResponse(code = 500, message = "Erro interno do servidor", response = Exception.class),
+	})
+	@ApiOperation(value = "Obter cidades por estado")
 	@GetMapping("listar-por-estado/{estado}")
 	public ResponseEntity<List<CidadeDto>> listarPorEstado(@PathVariable String estado) {
 		
 		return  ResponseEntity.ok(service.listarPorEstado(estado.toUpperCase()));
 	}
-	
+
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Sucesso",  response = List.class ),
+			@ApiResponse(code = 404, message = "Não encontrado", response = NotFoundException.class),		
+			@ApiResponse(code = 500, message = "Erro interno do servidor", response = Exception.class),
+	})
+	@ApiOperation(value = "Criar nova cidade")
 	@PostMapping
 	public ResponseEntity<CidadeDto> cadastrar(@RequestBody CidadeRequest request){
-		return ResponseEntity.ok(service.cadastrar(request));
+		CidadeDto dto = service.cadastrar(request);
+		
+		return  dto != null ? ResponseEntity.status(201).body(dto)
+				: ResponseEntity.unprocessableEntity().build();
 	}
 	
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Sucesso",  response = List.class ),
+			@ApiResponse(code = 404, message = "Não encontrado", response = NotFoundException.class),		
+			@ApiResponse(code = 500, message = "Erro interno do servidor", response = Exception.class),
+	})
+	@ApiOperation(value = "Atualizar Cidade")
 	@PutMapping("{id}")
 	public ResponseEntity<CidadeDto> atualizar(@PathVariable String id, @RequestBody CidadeRequest request){
 		CidadeDto dto = service.atualizar(id, request);
@@ -65,6 +108,12 @@ public class CidadeResource {
 				: ResponseEntity.noContent().build();
 	}
 	
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Sucesso",  response = List.class ),
+			@ApiResponse(code = 404, message = "Não encontrado", response = NotFoundException.class),		
+			@ApiResponse(code = 500, message = "Erro interno do servidor", response = Exception.class),
+	})
+	@ApiOperation(value = "Deletar cidade por id")
 	@DeleteMapping("{id}")
 	public ResponseEntity<Boolean> deletar(@PathVariable String id){
 		boolean res = service.deletar(id);

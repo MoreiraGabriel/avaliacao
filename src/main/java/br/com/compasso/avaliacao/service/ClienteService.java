@@ -28,26 +28,26 @@ public class ClienteService {
 		return ClienteDto.converter(repository.findAll());
 	}
 	
-	public Optional<ClienteDto> obterPorId(Long id) {
+	public Optional<ClienteDto> obterPorId(String id) {
 		
 		Optional<Cliente> cliente = repository.findById(id);
 		
 		return cliente.isPresent() ? Optional.of(new ClienteDto(cliente.get())) : Optional.empty();
 	}
 	
-	public List<ClienteDto> listarPorNome(NomeRequest request) {		
-		return ClienteDto.converter(repository.findByNome(request.getNome()));
+	public List<ClienteDto> listarPorNome(String nome) {		
+		return ClienteDto.converter(repository.findByNome(nome));
 	}
 	
 	@Transactional
-	public ClienteDto atualizaNome(Long idCliente, String nome) {
+	public ClienteDto atualizaNome(String id, NomeRequest request) {
 		
-		Optional<Cliente> optional = repository.findById(idCliente);
+		Optional<Cliente> optional = repository.findById(id);
 		Cliente cliente;
 		
 		if(optional.isPresent()) {
 			cliente = optional.get();
-			cliente.setNome(nome);
+			cliente.setNome(request.getNome());
 			return new ClienteDto(repository.save(cliente));
 		}
 		
@@ -57,17 +57,14 @@ public class ClienteService {
 	@Transactional
 	public ClienteDto cadastrar(ClienteRequest request) {
 		
-		Optional<Cidade> cidade = cidadeRepository.findCidade(request.getCidade());
+		Optional<List<Cidade>> cidade = cidadeRepository.findByNome(request.getCidade());
 		
 		if(cidade.isPresent()) {
-			Cliente cliente = new Cliente();
-			cliente.setNome(request.getNome());
-			cliente.setSexo(request.getSexo());
-			cliente.setDataNascimento(request.getDataNascimento());
-			cliente.setIdade(request.getIdade());
-			cliente.setCidade(cidade.get());	
+			Cliente cliente = new Cliente(request);
 			
-			return new ClienteDto(repository.save(cliente));
+			cliente.setCidade(cidade.get().get(0));	
+		
+			return new ClienteDto(repository.insert(cliente));
 		}		
 		
 		return null;
@@ -75,7 +72,7 @@ public class ClienteService {
 	}
 	
 	@Transactional
-	public Boolean deletar(Long id) {
+	public Boolean deletar(String id) {
 		
 		boolean res = repository.existsById(id);
 		

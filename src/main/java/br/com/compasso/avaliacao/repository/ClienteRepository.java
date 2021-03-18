@@ -10,7 +10,7 @@ import br.com.compasso.avaliacao.model.Cliente;
 
 @Repository
 @Transactional
-public interface ClienteRepository extends MongoRepository<Cliente, Long>{
+public interface ClienteRepository extends MongoRepository<Cliente, String>{
 	
 	List<Cliente> findByNome(String nome);
 }
