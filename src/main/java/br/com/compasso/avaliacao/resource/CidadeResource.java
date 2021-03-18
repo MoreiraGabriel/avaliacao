@@ -36,7 +36,7 @@ public class CidadeResource {
 	}
 	
 	@GetMapping("listar")
-	public ResponseEntity<List<CidadeDto>> obterPorId() {
+	public ResponseEntity<List<CidadeDto>> obterTodas() {
 		
 		return  ResponseEntity.ok(service.obterTodas());
 	}

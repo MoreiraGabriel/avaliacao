@@ -2,30 +2,33 @@ package br.com.compasso.avaliacao.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Document("clientes")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cliente {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id 
 	private Long id;
 	private String nome;
 	private String sexo;
 	private LocalDateTime dataNascimento;
 	private Long idade;
-	@ManyToOne
-	@JoinColumn(name = "id_cidade")
 	private Cidade cidade;
+	
+	public Cliente(String nome, String sexo, LocalDateTime dataNascimento, Long idade, Cidade cidade) {
+		this.nome = nome;
+		this.sexo = sexo;
+		this.dataNascimento = dataNascimento;
+		this.idade = idade;
+		this.cidade = cidade;
+	}	
+	
 }

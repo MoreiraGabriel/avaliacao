@@ -26,7 +26,8 @@ public class CidadeService {
 	}
 	
 	public List<CidadeDto> obterTodas(){
-		return CidadeDto.converterDto(repository.findAll());
+		List<CidadeDto> lista = CidadeDto.converterDto(repository.findAll());
+		return lista;
 	}
 	
 	public List<CidadeDto>listarPorNome(NomeRequest request){
@@ -40,7 +41,7 @@ public class CidadeService {
 	
 	public CidadeDto atualizar(CidadeRequest request) {
 		
-		Optional<Cidade> optional = repository.findById(request.getId());
+		Optional<Cidade> optional = repository.findById(Long.parseLong(request.getId()));
 		Cidade cidade;
 		
 		if(optional.isPresent()) {

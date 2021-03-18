@@ -3,10 +3,9 @@ package br.com.compasso.avaliacao.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.compasso.avaliacao.model.Cidade;
 import br.com.compasso.avaliacao.model.Cliente;
