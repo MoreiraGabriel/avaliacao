@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.compasso.avaliacao.model.dto.CidadeDto;
 import br.com.compasso.avaliacao.model.dto.request.CidadeRequest;
-import br.com.compasso.avaliacao.model.dto.request.NomeRequest;
 import br.com.compasso.avaliacao.service.CidadeService;
 import io.swagger.annotations.Api;
 
@@ -28,46 +27,46 @@ public class CidadeResource {
 	@Autowired
 	private CidadeService service;
 	
-	@GetMapping("listar/{id}")
-	public ResponseEntity<CidadeDto> obterPorId(@PathVariable Long id) {
+	@GetMapping("{id}")
+	public ResponseEntity<CidadeDto> obterPorId(@PathVariable String id) {
 		Optional<CidadeDto> dto = service.obterPorId(id);
 		
 		return  ResponseEntity.of(dto);
 	}
 	
-	@GetMapping("listar")
+	@GetMapping
 	public ResponseEntity<List<CidadeDto>> obterTodas() {
 		
 		return  ResponseEntity.ok(service.obterTodas());
 	}
 	
-	@GetMapping("listar-por-nome")
-	public ResponseEntity<List<CidadeDto>> listarPorNome(@RequestBody NomeRequest request) {
+	@GetMapping("listar-por-nome/{cidade}")
+	public ResponseEntity<List<CidadeDto>> listarPorNome(@PathVariable String cidade) {
 		
-		return  ResponseEntity.ok(service.listarPorNome(request));
+		return  ResponseEntity.ok(service.listarPorNome(cidade));
 	}
 	
-	@GetMapping("listar-por-estado")
-	public ResponseEntity<List<CidadeDto>> listarPorEstado(@RequestBody NomeRequest request) {
+	@GetMapping("listar-por-estado/{estado}")
+	public ResponseEntity<List<CidadeDto>> listarPorEstado(@PathVariable String estado) {
 		
-		return  ResponseEntity.ok(service.listarPorEstado(request));
+		return  ResponseEntity.ok(service.listarPorEstado(estado.toUpperCase()));
 	}
 	
-	@PostMapping("cadastrar")
+	@PostMapping
 	public ResponseEntity<CidadeDto> cadastrar(@RequestBody CidadeRequest request){
 		return ResponseEntity.ok(service.cadastrar(request));
 	}
 	
-	@PutMapping("atualizar")
-	public ResponseEntity<CidadeDto> atualizar(@RequestBody CidadeRequest request){
-		CidadeDto dto = service.atualizar(request);
+	@PutMapping("{id}")
+	public ResponseEntity<CidadeDto> atualizar(@PathVariable String id, @RequestBody CidadeRequest request){
+		CidadeDto dto = service.atualizar(id, request);
 		
 		return dto != null ?  ResponseEntity.ok(dto) 
 				: ResponseEntity.noContent().build();
 	}
 	
-	@DeleteMapping("deletar/{id}")
-	public ResponseEntity<Boolean> deletar(@PathVariable Long id){
+	@DeleteMapping("{id}")
+	public ResponseEntity<Boolean> deletar(@PathVariable String id){
 		boolean res = service.deletar(id);
 		return res ? ResponseEntity.ok(res) : ResponseEntity.notFound().build();
 	}

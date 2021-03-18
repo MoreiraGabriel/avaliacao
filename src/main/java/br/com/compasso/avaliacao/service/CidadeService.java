@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import br.com.compasso.avaliacao.model.Cidade;
 import br.com.compasso.avaliacao.model.dto.CidadeDto;
 import br.com.compasso.avaliacao.model.dto.request.CidadeRequest;
-import br.com.compasso.avaliacao.model.dto.request.NomeRequest;
 import br.com.compasso.avaliacao.repository.CidadeRepository;
 
 @Service
@@ -18,7 +17,7 @@ public class CidadeService {
 	@Autowired
 	private CidadeRepository repository;
 	
-	public Optional<CidadeDto> obterPorId(Long id) {
+	public Optional<CidadeDto> obterPorId(String id) {
 		
 		Optional<Cidade> cidade = repository.findById(id);
 		
@@ -30,8 +29,8 @@ public class CidadeService {
 		return lista;
 	}
 	
-	public List<CidadeDto>listarPorNome(NomeRequest request){
-		Optional<List<Cidade>> cidades = repository.findByNome(request.getNome());
+	public List<CidadeDto>listarPorNome(String request){
+		Optional<List<Cidade>> cidades = repository.findByNome(request);
 		return cidades.isPresent() ? CidadeDto.converterDto((cidades.get())) : null;
 	}
 	
@@ -39,15 +38,15 @@ public class CidadeService {
 		return new CidadeDto(repository.save(new Cidade(request)));
 	}
 	
-	public CidadeDto atualizar(CidadeRequest request) {
+	public CidadeDto atualizar(String id, CidadeRequest request) {
 		
-		Optional<Cidade> optional = repository.findById(Long.parseLong(request.getId()));
+		Optional<Cidade> optional = repository.findById(id);
 		Cidade cidade;
 		
 		if(optional.isPresent()) {
 			cidade = optional.get();
 			cidade.setNome(request.getNome());
-			cidade.setEstado(request.getEstado());
+			cidade.setEstado(request.getEstado().toUpperCase());
 		}else {
 			return null;
 		}
@@ -55,7 +54,7 @@ public class CidadeService {
 		return new CidadeDto(repository.save(cidade));
 	}
 
-	public Boolean deletar(Long id) {
+	public Boolean deletar(String id) {
 		
 		boolean res = repository.existsById(id);
 		
@@ -66,8 +65,8 @@ public class CidadeService {
 		return res;
 	}
 
-	public List<CidadeDto> listarPorEstado(NomeRequest request) {
-		return CidadeDto.converterDto(repository.findByEstado(request.getNome()));
+	public List<CidadeDto> listarPorEstado(String request) {
+		return CidadeDto.converterDto(repository.findByEstado(request));
 	}
 	
 }

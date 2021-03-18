@@ -14,14 +14,13 @@ import br.com.compasso.avaliacao.model.Cidade;
 
 @Repository
 @Transactional
-public interface CidadeRepository extends MongoRepository<Cidade, Long> {
+public interface CidadeRepository extends MongoRepository<Cidade, String> {
 
 	Optional<List<Cidade>> findByNome(String nome);
 	
 	@Query(value = "SELECT * FROM cidade c WHERE c.nome = :nome")
 	Optional<Cidade> findCidade(@Param("nome") String nome);
 	
-	List<Cidade> findByEstado(String estado);
-	
+	List<Cidade> findByEstado(String estado);	
 	
 }

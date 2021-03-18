@@ -40,14 +40,14 @@ public class ClienteService {
 	}
 	
 	@Transactional
-	public ClienteDto atualizaNome(Long idCliente, NomeRequest request) {
+	public ClienteDto atualizaNome(Long idCliente, String nome) {
 		
 		Optional<Cliente> optional = repository.findById(idCliente);
 		Cliente cliente;
 		
 		if(optional.isPresent()) {
 			cliente = optional.get();
-			cliente.setNome(request.getNome());
+			cliente.setNome(nome);
 			return new ClienteDto(repository.save(cliente));
 		}
 		

@@ -25,7 +25,7 @@ public class Cidade {
 
 	public Cidade(CidadeRequest request) {
 		this.nome = request.getNome();
-		this.estado = request.getEstado();
+		this.estado = request.getEstado().toUpperCase();
 	}
 
 }

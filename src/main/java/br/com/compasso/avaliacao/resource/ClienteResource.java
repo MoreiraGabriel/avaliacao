@@ -54,8 +54,8 @@ public class ClienteResource {
 	
 	@PutMapping("atualizar-nome/{id}")
 	public ResponseEntity<ClienteDto> atualizarNome(@PathVariable Long id, 
-			@RequestBody NomeRequest request){
-		ClienteDto dto = service.atualizaNome(id, request);
+			@RequestBody String nome){
+		ClienteDto dto = service.atualizaNome(id, nome);
 		
 		return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
 	}
