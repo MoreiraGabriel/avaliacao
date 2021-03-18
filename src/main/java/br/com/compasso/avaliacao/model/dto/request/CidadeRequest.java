@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CidadeRequest {
 
+	private String id;
 	private String nome;
 	private String estado;
 	

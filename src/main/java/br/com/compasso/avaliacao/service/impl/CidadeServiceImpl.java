@@ -42,7 +42,8 @@ public class CidadeServiceImpl implements CidadeService{
 	@Transactional
 	@Override
 	public CidadeDto cadastrar(CidadeRequest request) {
-		return new CidadeDto(repository.save(new Cidade(request)));
+		Cidade cidade = repository.insert(new Cidade(request));
+		return new CidadeDto(repository.insert(cidade));
 	}
 	
 	@Transactional
@@ -50,14 +51,12 @@ public class CidadeServiceImpl implements CidadeService{
 	public CidadeDto atualizar(String id, CidadeRequest request) {
 		
 		Optional<Cidade> optional = repository.findById(id);
-		Cidade cidade;
+		Cidade cidade = null;
 		
 		if(optional.isPresent()) {
 			cidade = optional.get();
 			cidade.setNome(request.getNome());
 			cidade.setEstado(request.getEstado().toUpperCase());
-		}else {
-			return null;
 		}
 		
 		return new CidadeDto(repository.save(cidade));

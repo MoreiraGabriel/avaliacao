@@ -1,8 +1,5 @@
 package br.com.compasso.avaliacao.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,7 +18,6 @@ public class Cidade {
 	private String id;
 	private String nome;
 	private String estado;
-	private List<Cliente> cliente = new ArrayList<>();
 
 	public Cidade(CidadeRequest request) {
 		this.nome = request.getNome();
