@@ -18,7 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.compasso.avaliacao.model.dto.ClienteDto;
 import br.com.compasso.avaliacao.model.dto.request.ClienteRequest;
 import br.com.compasso.avaliacao.model.dto.request.NomeRequest;
-import br.com.compasso.avaliacao.service.ClienteService;
+import br.com.compasso.avaliacao.service.impl.ClienteServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiResponses;
 public class ClienteResource {
 	
 	@Autowired
-	private ClienteService service;
+	private ClienteServiceImpl service;
 	
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Sucesso",  response = List.class ),

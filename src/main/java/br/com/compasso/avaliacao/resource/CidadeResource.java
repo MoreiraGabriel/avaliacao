@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.compasso.avaliacao.model.dto.CidadeDto;
 import br.com.compasso.avaliacao.model.dto.request.CidadeRequest;
-import br.com.compasso.avaliacao.service.CidadeService;
+import br.com.compasso.avaliacao.service.impl.CidadeServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiResponses;
 public class CidadeResource {
 	
 	@Autowired
-	private CidadeService service;
+	private CidadeServiceImpl service;
 	
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Sucesso",  response = CidadeDto.class ),
