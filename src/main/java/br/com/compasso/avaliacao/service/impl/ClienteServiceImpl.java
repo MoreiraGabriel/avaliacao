@@ -49,15 +49,14 @@ public class ClienteServiceImpl implements ClienteService{
 	public ClienteDto atualizaNome(Long idCliente, NomeRequest request) {
 		
 		Optional<Cliente> optional = repository.findById(idCliente);
-		Cliente cliente;
 		
+		Cliente cliente = null;		
 		if(optional.isPresent()) {
 			cliente = optional.get();
-			cliente.setNome(request.getNome());
-			return new ClienteDto(repository.save(cliente));
+			cliente.setNome(request.getNome());			
 		}
 		
-		return null;
+		return new ClienteDto(repository.save(cliente));
 	}
 	
 	@Transactional
@@ -66,31 +65,27 @@ public class ClienteServiceImpl implements ClienteService{
 		
 		Optional<Cidade> cidade = cidadeRepository.findCidade(request.getCidade());
 		
+		Cliente cliente = null;
 		if(cidade.isPresent()) {
-			Cliente cliente = new Cliente();
+			cliente = new Cliente();
 			cliente.setNome(request.getNome());
 			cliente.setSexo(request.getSexo());
 			cliente.setDataNascimento(request.getDataNascimento());
 			cliente.setIdade(request.getIdade());
-			cliente.setCidade(cidade.get());	
-			
-			return new ClienteDto(repository.save(cliente));
+			cliente.setCidade(cidade.get());				
 		}		
 		
-		return null;
-		
+		return new ClienteDto(repository.save(cliente));		
 	}
 	
 	@Transactional
 	@Override
 	public Boolean deletar(Long id) {
 		
-		boolean res = repository.existsById(id);
-		
+		boolean res = repository.existsById(id);		
 		if(res) {
 			repository.deleteById(id);
-		}
-		
+		}		
 		return res;
 	}
 }

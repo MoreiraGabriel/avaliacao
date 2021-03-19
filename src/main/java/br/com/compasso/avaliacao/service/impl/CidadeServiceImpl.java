@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.compasso.avaliacao.model.Cidade;
 import br.com.compasso.avaliacao.model.dto.CidadeDto;
@@ -33,33 +34,34 @@ public class CidadeServiceImpl implements CidadeService{
 	}
 	
 	@Override
-	public List<CidadeDto>listarPorNome(NomeRequest request){
+	public Optional<List<CidadeDto>> listarPorNome(NomeRequest request){
 		Optional<List<Cidade>> cidades = repository.findByNome(request.getNome());
-		return cidades.isPresent() ? CidadeDto.converterDto((cidades.get())) : null;
+		return  Optional.of(CidadeDto.converterDto((cidades.get())));
 	}
 	
+	@Transactional
 	@Override
 	public CidadeDto cadastrar(CidadeRequest request) {
 		return new CidadeDto(repository.save(new Cidade(request)));
 	}
 	
+	@Transactional
 	@Override
 	public CidadeDto atualizar(CidadeRequest request) {
 		
 		Optional<Cidade> optional = repository.findById(request.getId());
-		Cidade cidade;
 		
+		Cidade cidade = null;		
 		if(optional.isPresent()) {
 			cidade = optional.get();
 			cidade.setNome(request.getNome());
 			cidade.setEstado(request.getEstado());
-		}else {
-			return null;
 		}
 		
 		return new CidadeDto(repository.save(cidade));
 	}
 
+	@Transactional
 	@Override
 	public Boolean deletar(Long id) {
 		

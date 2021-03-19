@@ -3,6 +3,7 @@ package br.com.compasso.avaliacao.resource;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import br.com.compasso.avaliacao.model.dto.request.ClienteRequest;
 import br.com.compasso.avaliacao.model.dto.request.NomeRequest;
 import br.com.compasso.avaliacao.service.impl.ClienteServiceImpl;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("cliente")
@@ -28,30 +30,35 @@ public class ClienteResource {
 	@Autowired
 	private ClienteServiceImpl service;
 	
+	@ApiOperation(value = "Listar todos os clientes")
 	@GetMapping("listar")
 	public ResponseEntity<List<ClienteDto>> listarTodos(){
 		return ResponseEntity.ok(service.listarTodos());
 	}
 	
+	@ApiOperation(value = "Listar clinete por id")
 	@GetMapping("listar/{id}")
 	public ResponseEntity<ClienteDto> obterPorId(@PathVariable Long id){
 		return ResponseEntity.of(service.obterPorId(id));
 	}
 	
+	@ApiOperation(value = "Listar cliente por id")
 	@GetMapping("listar-por-nome")
 	public ResponseEntity<List<ClienteDto>> obterPorNome(@RequestBody NomeRequest request){
 		return ResponseEntity.ok(service.listarPorNome(request));
 	}
 	
+	@ApiOperation(value = "Criar cliente")
 	@PostMapping("cadastrar")
 	public ResponseEntity<ClienteDto> cadastrar(@RequestBody ClienteRequest request, 
 			UriComponentsBuilder builder){
 		ClienteDto dto = service.cadastrar(request);
 		
-		return dto != null ? ResponseEntity.status(201).body(dto)
+		return dto != null ? ResponseEntity.status(HttpStatus.CREATED).body(dto)
 				: ResponseEntity.unprocessableEntity().build();
 	}
 	
+	@ApiOperation(value = "Atualizar nome do cliente")
 	@PutMapping("atualizar-nome/{id}")
 	public ResponseEntity<ClienteDto> atualizarNome(@PathVariable Long id, 
 			@RequestBody NomeRequest request){
@@ -60,6 +67,7 @@ public class ClienteResource {
 		return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
 	}
 	
+	@ApiOperation(value = "Deletar cliente por id")
 	@DeleteMapping("deletar/{id}")
 	public ResponseEntity<Boolean> deletar(@PathVariable Long id){
 		boolean res = service.deletar(id);

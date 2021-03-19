@@ -13,7 +13,7 @@ public interface CidadeService {
 	
 	List<CidadeDto> obterTodas();
 
-	List<CidadeDto>listarPorNome(NomeRequest request);
+	Optional<List<CidadeDto>> listarPorNome(NomeRequest request);
 	
 	CidadeDto cadastrar(CidadeRequest request);
 	
