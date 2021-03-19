@@ -13,7 +13,7 @@ public interface ClienteService {
 	
 	Optional<ClienteDto> obterPorId(Long id);
 	
-	List<ClienteDto> listarPorNome(NomeRequest request);
+	List<ClienteDto> listarPorNome(String request);
 	
 	ClienteDto atualizaNome(Long idCliente, NomeRequest request);
 	

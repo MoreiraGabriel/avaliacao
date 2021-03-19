@@ -28,8 +28,14 @@ public class Cidade {
 	private List<Cliente> cliente = new ArrayList<>();
 	
 	public Cidade(CidadeRequest request) {
-		this.id = request.getId();
 		this.nome = request.getNome();
 		this.estado = request.getEstado();
 	}
+
+	public Cidade(Long id, String nome, String estado) {
+		this.id = id;
+		this.nome = nome;
+		this.estado = estado;
+	}
+
 }

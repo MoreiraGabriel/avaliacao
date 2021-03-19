@@ -11,12 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CidadeRequest {
 
-	private Long id;
 	private String nome;
 	private String estado;
 	
 	public CidadeRequest(Cidade cidade){
-		this.id = cidade.getId();
 		this.nome = cidade.getNome();
 		this.estado = cidade.getEstado();		
 	}

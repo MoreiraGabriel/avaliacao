@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.compasso.avaliacao.model.dto.CidadeDto;
 import br.com.compasso.avaliacao.model.dto.request.CidadeRequest;
-import br.com.compasso.avaliacao.model.dto.request.NomeRequest;
 import br.com.compasso.avaliacao.service.impl.CidadeServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,17 +45,17 @@ public class CidadeResource {
 	}
 	
 	@ApiOperation(value = "Listar cidade por nome")
-	@GetMapping("listar-por-nome")
-	public ResponseEntity<List<CidadeDto>> listarPorNome(@RequestBody NomeRequest request) {
+	@GetMapping("listar-por-nome/{cidade}")
+	public ResponseEntity<List<CidadeDto>> listarPorNome(@PathVariable String cidade) {
 		
-		return  ResponseEntity.of(service.listarPorNome(request));
+		return  ResponseEntity.of(service.listarPorNome(cidade));
 	}
 	
 	@ApiOperation(value = "Listar cidade por estado")
-	@GetMapping("listar-por-estado")
-	public ResponseEntity<List<CidadeDto>> listarPorEstado(@RequestBody NomeRequest request) {
+	@GetMapping("listar-por-estado/{estado}")
+	public ResponseEntity<List<CidadeDto>> listarPorEstado(@PathVariable String estado) {
 		
-		return  ResponseEntity.ok(service.listarPorEstado(request));
+		return  ResponseEntity.ok(service.listarPorEstado(estado));
 	}
 	
 	@ApiOperation(value = "Criar nova cidade")
@@ -69,9 +68,9 @@ public class CidadeResource {
 	}
 	
 	@ApiOperation(value = "Atualizar cidade")
-	@PutMapping("atualizar")
-	public ResponseEntity<CidadeDto> atualizar(@RequestBody CidadeRequest request){
-		CidadeDto dto = service.atualizar(request);
+	@PutMapping("atualizar/{id}")
+	public ResponseEntity<CidadeDto> atualizar(@PathVariable Long id, @RequestBody CidadeRequest request){
+		CidadeDto dto = service.atualizar(id, request);
 		
 		return dto != null ?  ResponseEntity.ok(dto) 
 				: ResponseEntity.noContent().build();

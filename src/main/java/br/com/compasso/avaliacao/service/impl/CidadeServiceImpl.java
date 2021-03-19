@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.compasso.avaliacao.model.Cidade;
 import br.com.compasso.avaliacao.model.dto.CidadeDto;
 import br.com.compasso.avaliacao.model.dto.request.CidadeRequest;
-import br.com.compasso.avaliacao.model.dto.request.NomeRequest;
 import br.com.compasso.avaliacao.repository.CidadeRepository;
 import br.com.compasso.avaliacao.service.CidadeService;
 
@@ -34,8 +33,8 @@ public class CidadeServiceImpl implements CidadeService{
 	}
 	
 	@Override
-	public Optional<List<CidadeDto>> listarPorNome(NomeRequest request){
-		Optional<List<Cidade>> cidades = repository.findByNome(request.getNome());
+	public Optional<List<CidadeDto>> listarPorNome(String cidade){
+		Optional<List<Cidade>> cidades = repository.findByNome(cidade);
 		return  Optional.of(CidadeDto.converterDto((cidades.get())));
 	}
 	
@@ -47,9 +46,9 @@ public class CidadeServiceImpl implements CidadeService{
 	
 	@Transactional
 	@Override
-	public CidadeDto atualizar(CidadeRequest request) {
+	public CidadeDto atualizar(Long id, CidadeRequest request) {
 		
-		Optional<Cidade> optional = repository.findById(request.getId());
+		Optional<Cidade> optional = repository.findById(id);
 		
 		Cidade cidade = null;		
 		if(optional.isPresent()) {
@@ -75,8 +74,8 @@ public class CidadeServiceImpl implements CidadeService{
 	}
 
 	@Override
-	public List<CidadeDto> listarPorEstado(NomeRequest request) {
-		return CidadeDto.converterDto(repository.findByEstado(request.getNome()));
+	public List<CidadeDto> listarPorEstado(String estado) {
+		return CidadeDto.converterDto(repository.findByEstado(estado));
 	}
 	
 }

@@ -40,8 +40,8 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 	
 	@Override
-	public List<ClienteDto> listarPorNome(NomeRequest request) {		
-		return ClienteDto.converter(repository.findByNome(request.getNome()));
+	public List<ClienteDto> listarPorNome(String nome) {		
+		return ClienteDto.converter(repository.findByNome(nome));
 	}
 	
 	@Transactional

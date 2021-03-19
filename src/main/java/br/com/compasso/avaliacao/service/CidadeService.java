@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import br.com.compasso.avaliacao.model.dto.CidadeDto;
 import br.com.compasso.avaliacao.model.dto.request.CidadeRequest;
-import br.com.compasso.avaliacao.model.dto.request.NomeRequest;
 
 public interface CidadeService {
 	
@@ -13,13 +12,13 @@ public interface CidadeService {
 	
 	List<CidadeDto> obterTodas();
 
-	Optional<List<CidadeDto>> listarPorNome(NomeRequest request);
+	Optional<List<CidadeDto>> listarPorNome(String cidade);
 	
 	CidadeDto cadastrar(CidadeRequest request);
 	
-	CidadeDto atualizar(CidadeRequest request);
+	CidadeDto atualizar(Long id, CidadeRequest request);
 	
 	Boolean deletar(Long id);
 	
-	List<CidadeDto> listarPorEstado(NomeRequest request);
+	List<CidadeDto> listarPorEstado(String estado);
 }

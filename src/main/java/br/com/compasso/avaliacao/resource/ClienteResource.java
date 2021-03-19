@@ -43,9 +43,9 @@ public class ClienteResource {
 	}
 	
 	@ApiOperation(value = "Listar cliente por id")
-	@GetMapping("listar-por-nome")
-	public ResponseEntity<List<ClienteDto>> obterPorNome(@RequestBody NomeRequest request){
-		return ResponseEntity.ok(service.listarPorNome(request));
+	@GetMapping("listar-por-nome/{nome}")
+	public ResponseEntity<List<ClienteDto>> obterPorNome(@PathVariable String nome){
+		return ResponseEntity.ok(service.listarPorNome(nome));
 	}
 	
 	@ApiOperation(value = "Criar cliente")
