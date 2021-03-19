@@ -17,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.compasso.avaliacao.model.dto.ClienteDto;
 import br.com.compasso.avaliacao.model.dto.request.ClienteRequest;
 import br.com.compasso.avaliacao.model.dto.request.NomeRequest;
-import br.com.compasso.avaliacao.service.ClienteService;
+import br.com.compasso.avaliacao.service.impl.ClienteServiceImpl;
 import io.swagger.annotations.Api;
 
 @RestController
@@ -26,7 +26,7 @@ import io.swagger.annotations.Api;
 public class ClienteResource {
 	
 	@Autowired
-	private ClienteService service;
+	private ClienteServiceImpl service;
 	
 	@GetMapping("listar")
 	public ResponseEntity<List<ClienteDto>> listarTodos(){

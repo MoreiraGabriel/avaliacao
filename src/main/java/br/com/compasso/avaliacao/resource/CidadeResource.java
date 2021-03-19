@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.compasso.avaliacao.model.dto.CidadeDto;
 import br.com.compasso.avaliacao.model.dto.request.CidadeRequest;
 import br.com.compasso.avaliacao.model.dto.request.NomeRequest;
-import br.com.compasso.avaliacao.service.CidadeService;
+import br.com.compasso.avaliacao.service.impl.CidadeServiceImpl;
 import io.swagger.annotations.Api;
 
 @RestController
@@ -26,7 +26,7 @@ import io.swagger.annotations.Api;
 public class CidadeResource {
 	
 	@Autowired
-	private CidadeService service;
+	private CidadeServiceImpl service;
 	
 	@GetMapping("listar/{id}")
 	public ResponseEntity<CidadeDto> obterPorId(@PathVariable Long id) {
