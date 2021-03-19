@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import br.com.compasso.avaliacao.model.Cidade;
 import br.com.compasso.avaliacao.model.dto.CidadeDto;
@@ -22,7 +21,6 @@ import br.com.compasso.avaliacao.repository.CidadeRepository;
 import br.com.compasso.avaliacao.service.impl.CidadeServiceImpl;
 
 @SpringBootTest
-@ActiveProfiles("teste")
 public class CidadeServiceTest {
 	
 	@Mock
@@ -74,23 +72,34 @@ public class CidadeServiceTest {
 	}
 	
 	@Test
-	public void CadastrarTest() {
-		
-		when(repository.insert(cidade)).thenReturn(cidade);
-		
-		CidadeDto result = service.cadastrar(new CidadeRequest(cidade));
-		
-		assertEquals(dtos, result);
-	}
-	
-	@Test
 	public void AtualizarTest() {
 		
+		when(repository.findById("1")).thenReturn(Optional.of(cidade));
 		when(repository.save(cidade)).thenReturn(cidade);
 		
 		CidadeDto result = service.atualizar("1", new CidadeRequest(cidade));
 		
-		assertEquals(dtos, result);
+		assertEquals(dtos.get(0), result);
+	}
+	
+	@Test
+	public void DeletarTest() {
+		
+		when(repository.existsById(Mockito.anyString())).thenReturn(true);		
+		
+		Boolean result = service.deletar("1");
+		
+		assertEquals(true, result);
+	}
+	
+	@Test
+	public void ObterPorEstadoTest() {
+		
+		when(repository.findByEstado(Mockito.anyString())).thenReturn(lista);
+		
+		List<CidadeDto> cidades = service.listarPorEstado("MG");
+		
+		assertEquals(dtos, cidades);
 	}
 
 }

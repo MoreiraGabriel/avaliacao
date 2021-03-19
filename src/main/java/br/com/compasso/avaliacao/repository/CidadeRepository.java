@@ -16,6 +16,6 @@ public interface CidadeRepository extends MongoRepository<Cidade, String> {
 
 	Optional<List<Cidade>> findByNome(String nome);
 	
-	List<Cidade> findByEstado(String estado);	
+	List<Cidade> findByEstado(String estado);
 	
 }

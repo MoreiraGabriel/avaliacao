@@ -42,8 +42,8 @@ public class CidadeServiceImpl implements CidadeService{
 	@Transactional
 	@Override
 	public CidadeDto cadastrar(CidadeRequest request) {
-		Cidade cidade = repository.insert(new Cidade(request));
-		return new CidadeDto(repository.insert(cidade));
+		Cidade cidade = repository.save(new Cidade(request));
+		return new CidadeDto(cidade);
 	}
 	
 	@Transactional

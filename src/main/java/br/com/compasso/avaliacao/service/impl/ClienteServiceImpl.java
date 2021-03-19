@@ -64,16 +64,17 @@ public class ClienteServiceImpl implements ClienteService{
 	public ClienteDto cadastrar(ClienteRequest request) {
 		
 		Optional<List<Cidade>> cidade = cidadeRepository.findByNome(request.getCidade());
+		Cliente cliente = null;
 		
 		if(cidade.isPresent()) {
-			Cliente cliente = new Cliente(request);
+			cliente = new Cliente(request);
 			
 			cliente.setCidade(cidade.get().get(0));	
 		
-			return new ClienteDto(repository.insert(cliente));
+			cliente = repository.insert(cliente);
 		}		
 		
-		return null;
+		return new ClienteDto(cliente);
 		
 	}
 	
