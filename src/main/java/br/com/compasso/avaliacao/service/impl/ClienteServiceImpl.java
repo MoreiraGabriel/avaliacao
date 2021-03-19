@@ -71,7 +71,7 @@ public class ClienteServiceImpl implements ClienteService{
 			
 			cliente.setCidade(cidade.get().get(0));	
 		
-			cliente = repository.insert(cliente);
+			cliente = repository.save(cliente);
 		}		
 		
 		return new ClienteDto(cliente);
